@@ -1,0 +1,18 @@
+.icon-add{
+	background:url('../images/icons/edit_add.png') no-repeat center center;
+}
+.icon-edit{
+	background:url('../images/icons/pencil.png') no-repeat center center;
+}
+.icon-clear{
+	background:url('../images/icons/clear.png') no-repeat center center;
+}
+.icon-remove{
+	background:url('../images/icons/edit_remove.png') no-repeat center center;
+}
+.icon-save{
+	background:url('../images/icons/filesave.png') no-repeat center center;
+}
+.icon-search{
+	background:url('../images/icons/search.png') no-repeat center center;
+}

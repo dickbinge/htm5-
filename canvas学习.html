@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>canvas学习</title>
+		<style type="text/css">
+			*{
+				margin-left: 30px;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload=function(){
+				var c=document.getElementById('sq');
+				var cxt=c.getContext('2d');  //声明是2D
+				cxt.fillStyle='#f00';
+				cxt.fillRect(0,0,150,75);
+				
+				var c1=document.getElementById('line');
+				var cxt1=c1.getContext('2d');
+				cxt1.moveTo(10,10); //开始点
+				cxt1.lineTo(150,50); //新的节点的位置
+				cxt1.lineTo(10,50);
+				cxt1.lineTo(20,40);
+				cxt1.lineTo(30,50);
+				cxt1.stroke();
+				
+				var c2=document.getElementById('cir');
+				var cxt2=c2.getContext('2d');
+				cxt2.fillStyle='#f00';
+				cxt2.beginPath();
+				cxt2.arc(30,30,25,0,Math.PI*2,true);  //x,y坐标  半径 ，角度   
+				cxt2.closePath();
+				cxt2.fill();
+				
+				var c3=document.getElementById('jianb');
+				var cxt3=c3.getContext('2d');
+				var grd=cxt3.createLinearGradient(0,0,175,50); //渐变开始点x,y  结束点x,y
+				grd.addColorStop(0,'#f00');  // stop  介于0.0~1.0之间 
+				grd.addColorStop(1,'#0f0');   //起始颜色  截止色
+				cxt3.fillStyle=grd;
+				cxt3.fillRect(0,0,175,50);
+				
+				var c4=document.getElementById('jianb1');
+				var cxt4=c4.getContext('2d');
+				var grd=cxt4.createLinearGradient(0,0,175,50);
+				grd.addColorStop(0,'red');
+				grd.addColorStop(0.2,'blue');
+				grd.addColorStop(0.4,'orange');
+				grd.addColorStop(0.6,'purple');
+				grd.addColorStop(0.8,'yellow');
+				grd.addColorStop(1,'pink');
+				cxt4.fillStyle=grd;
+				cxt4.fillRect(0,0,175,50);
+				
+				var c5=document.getElementById('img');
+				var cxt5=c5.getContext('2d');
+				var img=new Image();
+				img.src='images/001.jpg';
+				cxt5.drawImage(img,0,0);
+			}
+			
+			
+		</script>
+	</head>
+	<body>
+		<h4>长方形</h4>
+		<canvas id="sq" width="200" height="100" style="border: 1px solid #000000;"></canvas><br />
+		<h4>线段</h4>
+		<canvas id="line" width="200" height="100" style="border: 1px solid #0000FF;"></canvas><br />
+		<h4>圆形</h4>
+		<canvas id="cir" width="200" height="100" style="border: 1px solid #c3c3c3"></canvas><br />
+		<h4>渐变色</h4>
+		<canvas id="jianb" width="200" height="100" style="border: 1px solid cornflowerblue;"></canvas><br />
+		<h4>复杂的渐变色</h4>
+		<canvas id="jianb1" width="200" height="100" style="border: 1px solid cornflowerblue;"></canvas><br />
+		<h4>图像</h4>
+		<canvas id="img" width="200" height="100" style="border: 1px solid #000000;"></canvas>
+	</body>
+</html>

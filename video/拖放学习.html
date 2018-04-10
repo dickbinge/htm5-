@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>拖放学习</title>
+		<style type="text/css">
+			#div1{
+				width: 400px;
+				height: 300px;
+				border: 1px dashed #000000;
+				padding: 10px;
+			}
+		</style>
+		<script type="text/javascript">
+			function allowDrop(ev)
+{
+ev.preventDefault();
+}
+
+function drag(ev)
+{
+ev.dataTransfer.setData("Text",ev.target.id);
+}
+
+function drop(ev)
+{
+ev.preventDefault();
+var data=ev.dataTransfer.getData("Text");
+ev.target.appendChild(document.getElementById(data));
+}
+		</script>
+	</head>
+	<body>
+		<p>请把当前图片拖到矩形中：</p><br />
+		<div id="div1" ondrag="drop(event)" ondragover="allowDrop(event)"></div>
+		<img src="../images/eg_dragdrop_w3school.gif" alt="" id="drag1" draggable="true" ondragstart="drag(event)"/>
+	</body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>easyUI的datagrid学习</title>
+    
+    <script type="text/javascript" src="js/jquery.min.js" ></script>
+    <script type="text/javascript" src="js/jquery.easyui.min.js" ></script>
+    <link rel="stylesheet" href="css/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="css/demo.css"/>
+    <style>
+	 .inputinfo{
+	 	height: 17px;
+	 	margin: 7px;
+	 	font: 15px;
+	 }
+     #user_input{
+     	margin-top: 20px;
+     }
+     #user_btn{
+     	margin-top:20px;
+     }
+     .btn{
+     	width: 50px;
+     	height: 27px;
+     	font-size: 15px;
+     	margin: 9px;
+     	background: #0072c6!important;
+     	font-family: "微软雅黑";
+     	color: #fff!important;
+     }
+    </style>
+    <script>
+    	$(function(){
+    		 $('#info').datagrid({
+	        	url:'datagrid_data.json',
+	        	columns:[[
+	        	   {field:'ck',checkbox:true},
+	        	   {field:'code',title:'编号',width:150,align:'center'},
+	        	   {field:'name',title:'名称',width:150,align:'center'},
+	        	   {field:'age',title:'年龄',width:150,align:'center'},
+	        	   {field:'address',title:'地址',width:150,align:'center'}
+	        	]],
+	        	method:'get',
+	        	pagination:true,
+	        	rownumbers:true,
+	        	width:660,
+	        	singleSelect:true,
+	        	checkOnSelect:true,
+	        	title:'用户信息',
+	        	toolbar: '#tb'
+	        });
+    		 $('#info').datagrid('reload');
+    		 $('#info1').datagrid({
+    		 	onCheck:function(index,rowData){
+    		 		var $check= $('#info1').datagrid('getChecked');
+    		 		var name='';
+    		 		$.each($check,function(i){
+    		 			name+=$(this)[0].name+",";
+    		 		});
+    		 		if(name.length!=0){
+    		 			name=name.substring(0,name.length-1);
+    		 			$('#userinfo1').html("勾选的用户名:"+name);
+    		 		}
+    		 		
+    		 	}
+    		 })
+    		  $('#info1').datagrid({
+    		 	onUncheck:function(index,rowData){
+    		 		var $check= $('#info1').datagrid('getChecked');
+    		 		var name='';
+    		 		$.each($check,function(i){
+    		 			name+=$(this)[0].name+",";
+    		 		});
+    		 		if(name.length!=0){
+    		 			name=name.substring(0,name.length-1);
+    		 			$('#userinfo1').html("勾选的用户名:"+name);
+    		 		}
+    		 		
+    		 	}
+    		 })
+    		 
+    		 debugger;
+    		 $('#info').datagrid({
+    		 	onSelect:function(index,rowData){
+    		 		$('#userinfo').html("用户名:"+rowData.name);
+    		 		
+    		 	}
+    		 })
+    		 
+    		 //点击删除按钮进行删除
+    		 $(".icon-remove").on('click',function(){
+    		 	var $check=$('#info').datagrid('getChecked');
+    		 	if($check.length==0){
+    		 		$.messager.show({
+    		 			title:'提示信息',
+    		 			msg:'请勾选一条数据',
+    		 			showType:'slide',
+    		 			timeout:2000,
+    		 			color:"red"
+    		 		});
+    		 		return false;
+    		 	}else{
+    		 		$.each($check,function(i){
+    		 			$('#info').datagrid('deleteRow',i);
+    		 		})
+    		 	}
+    		 })
+    		 
+    		 //点击新增按钮弹出一个弹出框进行新增操作
+    		 $('.icon-add').on('click',function(){
+    		 	
+    		 	$('#dd').dialog('open');
+    		 })
+    		 
+    		 //点击新增弹出框上的确认按钮给列表上赋值
+    		 
+			 //点击取消按钮取消弹出窗口
+		      $('#cancel').on('click',function(){
+		       	 $('#dd').dialog('close');
+		      })
+    	})
+       
+       
+       
+    </script>
+</head>
+<body>
+	 <div id="dd" class="easyui-dialog" title="新增信息" style="width: 400px; height: 300px;text-align:center"
+            data-options="resizable:true,modal:false,closed:true"  >
+            <div id="user_input">
+	            <label for="code">编号:</label>
+	            <input class="inputinfo" id="code" type="text" placeholder="请输入编号"/> <br />
+	            <label for="name">名称:</label>
+	            <input class="inputinfo" id="name" type="text" value="" placeholder="请输入用户名"/><br />
+	            <label for="name">年龄:</label>
+	            <input class="inputinfo" id="name" type="number" value=""/><br />
+	            <label for="name">地址:</label>
+	            <input class="inputinfo" id="name" type="text" value="" placeholder="地址"/>
+            </div>
+            <div id="user_btn">
+            	<input id="submit" class="btn" type="button" value="确认"/>
+            	<input id="cancel" class="btn" type="button" value="取消" />
+            </div>
+        </div>
+	<div id="tb">
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true"></a>
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true"></a>
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true"></a>
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true"></a>
+	</div>
+	<h3 id="title" style="text-align: center;">easyUI 的datagrid绑定列的三种方法</h3>
+	<h5>1、直接在data-options中进行绑定数据</h5>
+   <table class="easyui-datagrid">
+   	<thead>
+   		<tr>
+   			
+   			<th data-options="field:'code'">编号</th>
+   			<th data-options="field:'name'">名称</th>
+   			<th data-options="field:'price'">价格</th>
+   		</tr>
+   	</thead>
+   	<tbody>
+   		<tr>
+   			<td>001</td>
+   			<td>荆斌</td>
+   			<td>23</td>
+   		</tr>
+   		<tr>
+   			<td>002</td>
+   			<td>李双全</td>
+   			<td>24</td>
+   		</tr>
+   	</tbody>
+   </table>
+
+ 
+   <hr />
+   <div id="td1">
+   	<h5>2、在datagrid标签中绑定JSON数据源，类似1，但是可以根据JSON数据源的改变进行冬天刷新</h5>
+   	<table id="info1" class="easyui-datagrid" style="width:630px;height: 250px" 
+   	data-options="singleSelect:false,collapsible:true,url:'datagrid_data.json',method:'get'">
+   	<thead>
+   		<tr>
+   			<th field='ck' checkbox='true'></th>
+   			<th data-options="field:'code',width:150,align:'center'">Code</th>
+			<th data-options="field:'name',width:150,align:'center'">Name</th>
+			<th data-options="field:'age',width:150,align:'center'">Age</th>
+			<th data-options="field:'address',width:150,align:'center'">Address</th>
+   		</tr>
+   	</thead>
+   </table>
+   </div>
+    <p id="userinfo1"></p>
+   <hr />
+   <h5>3、通过js对控件进行数据源的绑定</h5>
+   <table id="info"></table>
+   <p id="userinfo"></p>
+</body>
+</html>

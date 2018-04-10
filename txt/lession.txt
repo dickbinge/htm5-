@@ -1,0 +1,6 @@
+
+easyUI 是一个基于jquery的框架，集成了各种用户界面插件
+
+jquery easyUI框架提供了创建网页所需的一切。在easyUI中声明一个UI框架，主要有两种方式来声明
+1，直接在HTML中声明
+2，编辑JavaScript代码来创建组件。
